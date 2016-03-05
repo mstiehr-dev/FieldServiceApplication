@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import dev.mstiehr.de.fieldserviceapplication.R;
 
@@ -34,7 +33,7 @@ public class SplashActivity extends Activity
         @Override
         public void run ()
         {
-            startActivity(new Intent(getApplication(), MainActivity.class));
+            startActivity(new Intent(getApplication(), FieldServiceActivity.class));
             SplashActivity.this.finish();
         }
     }
