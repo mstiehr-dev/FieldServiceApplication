@@ -13,6 +13,9 @@ public class Prefs
     private String userEmail;
     private String serverAddress = "http://android12.msi-wireless.com/getjoblist.php";
 
+    private final static String KEY_USERNAME = "USERNAME";
+    private final static String KEY_SERVERADDR = "SERVER_ADDRESS";
+
     public Prefs(Context context)
     {
         prefs = context.getSharedPreferences("PREFS_PRIVATE", Context.MODE_PRIVATE);
@@ -45,11 +48,37 @@ public class Prefs
         this.userEmail = userEmail;
     }
 
+    /**
+     * writes changes to preferences file
+     */
     public void save() {
         if (editor == null) {
             return;
         }
+        saveUsername();
+        saveServerAddress();
+
         editor.commit();
+    }
+
+    public String getSavedUsername()
+    {
+        return getValue(KEY_USERNAME, "");
+    }
+
+    public String getSavedServerAddress()
+    {
+        return getValue(KEY_SERVERADDR, "");
+    }
+
+    public void saveUsername()
+    {
+        setValue(KEY_USERNAME, userEmail);
+    }
+
+    public void saveServerAddress()
+    {
+        setValue(KEY_SERVERADDR, serverAddress);
     }
 
     public String getServerAddress ()

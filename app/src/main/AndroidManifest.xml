@@ -21,7 +21,22 @@
                 android:label="@string/app_name"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".activity.RefreshJobsActivity">
+        <activity
+                android:name=".activity.RefreshJobsActivity"
+                android:parentActivityName=".activity.FieldServiceActivity"/>
+        <activity
+                android:name=".activity.SettingsActivity"
+                android:label="@string/title_activity_settings"
+                android:parentActivityName=".activity.FieldServiceActivity">
+        </activity>
+        <activity
+                android:name=".activity.ListJobsActivity"
+                android:label="@string/title_activity_list_jobs"
+                android:parentActivityName=".activity.FieldServiceActivity"/>
+        <activity
+                android:name=".activity.SettingsTransientActivity"
+                android:label="@string/title_activity_settings_transient"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

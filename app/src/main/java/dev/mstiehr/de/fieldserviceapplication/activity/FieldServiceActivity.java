@@ -2,6 +2,7 @@ package dev.mstiehr.de.fieldserviceapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.TextViewCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 import dev.mstiehr.de.fieldserviceapplication.R;
 import dev.mstiehr.de.fieldserviceapplication.misc.Prefs;
 
@@ -43,7 +45,8 @@ public class FieldServiceActivity extends AppCompatActivity
             {
                 try
                 {
-                    startActivityForResult(new Intent(v.getContext(), RefreshJobsActivity.class), ACTIVITY_REFRESH_JOBS);
+                    startActivityForResult(new Intent(v.getContext(), RefreshJobsActivity.class),
+                            ACTIVITY_REFRESH_JOBS);
                 }
                 catch (Exception e)
                 {
@@ -51,13 +54,59 @@ public class FieldServiceActivity extends AppCompatActivity
                 }
             }
         });
+
+        final Button btnListJobs = (Button) findViewById(R.id.listjobs);
+        btnListJobs.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View v)
+            {
+                try
+                {
+                    startActivityForResult(new Intent(v.getContext(), ListJobsActivity.class), ACTIVITY_LIST_JOBS);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        final Button btnSettings = (Button) findViewById(R.id.settings);
+        btnSettings.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View v)
+            {
+                try
+                {
+                    startActivityForResult(new Intent(v.getContext(), SettingsTransientActivity.class),
+                            ACTIVITY_SETTINGS);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        TextView tvUserName = (TextView) findViewById(R.id.tv_username);
+        if ("".equals(myPrefs.getSavedUsername()))
+        {
+            tvUserName.setVisibility(View.GONE);
+        }
+        else
+        {
+            tvUserName.setText(myPrefs.getSavedUsername());
+        }
+
     }
 
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data)
     {
         //super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode)
+        switch (requestCode)
         {
             case ACTIVITY_REFRESH_JOBS:
                 break;
@@ -147,7 +196,7 @@ public class FieldServiceActivity extends AppCompatActivity
         return true;
     }
 
-    private void refreshUserInfo()
+    private void refreshUserInfo ()
     {
 
     }

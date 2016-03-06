@@ -17,5 +17,28 @@
             android:layout_height="wrap_content"
             android:text="refresh"
             android:id="@+id/getjobs"
+            android:layout_alignParentTop="true"
     />
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="list jobs"
+            android:id="@+id/listjobs"
+            android:layout_below="@+id/getjobs"
+    />
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="settings"
+            android:id="@+id/settings"
+            android:layout_below="@+id/listjobs"
+    />
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/tv_username"
+              android:text="user@example.com"
+              android:layout_alignParentBottom="true"
+              android:layout_alignParentRight="true"
+              style="@android:style/TextAppearance.Small"/>
 </RelativeLayout>
