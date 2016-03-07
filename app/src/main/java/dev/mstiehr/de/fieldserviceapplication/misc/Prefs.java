@@ -8,6 +8,20 @@ import android.content.SharedPreferences;
  */
 public class Prefs
 {
+    private static Prefs instance;
+
+    public synchronized static Prefs getInstance(Context context)
+    {
+        if(null==instance)
+        {
+            if(null!=context)
+            {
+                instance = new Prefs(context);
+            }
+        }
+        return instance;
+    }
+
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
     private String userEmail;
@@ -63,12 +77,12 @@ public class Prefs
 
     public String getSavedUsername()
     {
-        return getValue(KEY_USERNAME, "");
+        return getValue(KEY_USERNAME, userEmail);
     }
 
     public String getSavedServerAddress()
     {
-        return getValue(KEY_SERVERADDR, "");
+        return getValue(KEY_SERVERADDR, serverAddress);
     }
 
     public void saveUsername()

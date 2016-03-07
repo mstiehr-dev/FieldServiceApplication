@@ -49,7 +49,7 @@ public class SettingsTransientActivity extends AppCompatActivity
 
         inputUsername = (EditText) findViewById(R.id.input_username);
         inputServerAddr = (EditText) findViewById(R.id.input_server_add);
-        mPrefs = new Prefs(this.getApplicationContext());
+        mPrefs = Prefs.getInstance(this.getApplicationContext());
 
         if("".equals(mPrefs.getSavedUsername()))
         {   // set hint

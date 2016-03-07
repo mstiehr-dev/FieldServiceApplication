@@ -1,6 +1,7 @@
 package dev.mstiehr.de.fieldserviceapplication;
 
 import android.app.Application;
+import com.activeandroid.ActiveAndroid;
 
 import java.util.HashMap;
 
@@ -13,6 +14,6 @@ public class FieldServiceApplication extends Application
     public void onCreate ()
     {
         super.onCreate();
-
+        ActiveAndroid.initialize(this);
     }
 }

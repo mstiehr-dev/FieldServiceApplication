@@ -1,19 +1,43 @@
 package dev.mstiehr.de.fieldserviceapplication.json;
 
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import dev.mstiehr.de.fieldserviceapplication.misc.Constants;
+
 /**
  * Created by Martin on 03.03.2016.
  */
+@Table(name = Constants.TABLE_JOBS)
 public class Job
 {
+    @Column(name = "_id")
     private String id;
+
+    @Column(name = "_status")
     private String status;
+
+    @Column(name = "_customer")
     private String customer;
+
+    @Column(name = "_address")
     private String address;
+
+    @Column(name = "_city")
     private String city;
+
+    @Column(name = "_state")
     private String state;
+
+    @Column(name = "_zip")
     private String zip;
+
+    @Column(name = "_product")
     private String product;
+
+    @Column(name = "_producturl")
     private String productUrl;
+
+    @Column(name = "_comments")
     private String comments;
 
     public String getId ()
