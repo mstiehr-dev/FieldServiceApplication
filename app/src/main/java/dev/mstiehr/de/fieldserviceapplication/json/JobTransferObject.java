@@ -10,15 +10,15 @@ public class JobTransferObject
     /**
      * example data: https://api.myjson.com/bins/4dse1 -> 29 jobs with unique IDs
      */
-    private List<Job> jobList;
+    private List<Job> joblist;
 
     public List<Job> getJobList ()
     {
-        return jobList;
+        return joblist;
     }
 
     public void setJobList (List<Job> jobList)
     {
-        this.jobList = jobList;
+        this.joblist = jobList;
     }
 }

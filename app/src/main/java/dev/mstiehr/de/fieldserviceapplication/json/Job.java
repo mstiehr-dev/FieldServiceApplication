@@ -1,5 +1,6 @@
 package dev.mstiehr.de.fieldserviceapplication.json;
 
+import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import dev.mstiehr.de.fieldserviceapplication.misc.Constants;
@@ -8,9 +9,9 @@ import dev.mstiehr.de.fieldserviceapplication.misc.Constants;
  * Created by Martin on 03.03.2016.
  */
 @Table(name = Constants.TABLE_JOBS)
-public class Job
+public class Job extends Model
 {
-    @Column(name = "_id")
+    @Column(name = "_id", index=true)
     private String id;
 
     @Column(name = "_status")
@@ -39,11 +40,6 @@ public class Job
 
     @Column(name = "_comments")
     private String comments;
-
-    public String getId ()
-    {
-        return id;
-    }
 
     public void setId (String id)
     {
@@ -137,6 +133,27 @@ public class Job
 
     public void setComments (String comments)
     {
+        this.comments = comments;
+    }
+
+    public Job ()
+    {
+        super();
+    }
+
+    public Job (String id, String status, String customer, String address, String city, String state, String zip,
+            String product, String productUrl, String comments)
+    {
+        super();
+        this.id = id;
+        this.status = status;
+        this.customer = customer;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.product = product;
+        this.productUrl = productUrl;
         this.comments = comments;
     }
 }

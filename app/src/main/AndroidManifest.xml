@@ -40,6 +40,9 @@
         </activity>
         <meta-data android:name="AA_DB_NAME" android:value="fieldservice.db"/>
         <meta-data android:name="AA_DB_VERSION" android:value="1"/>
+        <meta-data
+                android:name="AA_MODELS"
+                android:value="dev.mstiehr.de.fieldserviceapplication.json.Job" />
     </application>
 
 </manifest>
