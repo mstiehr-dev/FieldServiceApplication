@@ -1,6 +1,8 @@
 package dev.mstiehr.de.fieldserviceapplication.activity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.TextViewCompat;
 import android.view.View;
@@ -12,10 +14,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import dev.mstiehr.de.fieldserviceapplication.R;
+import dev.mstiehr.de.fieldserviceapplication.json.LogEntry;
+import dev.mstiehr.de.fieldserviceapplication.misc.Logger;
 import dev.mstiehr.de.fieldserviceapplication.misc.Prefs;
 
-public class FieldServiceActivity extends AppCompatActivity
+import java.util.List;
+
+public class FieldServiceActivity extends Activity
         implements NavigationView.OnNavigationItemSelectedListener
 {
     final int ACTIVITY_REFRESH_JOBS = 1;
@@ -23,6 +32,9 @@ public class FieldServiceActivity extends AppCompatActivity
     final int ACTIVITY_SETTINGS = 3;
 
     Prefs myPrefs = null;
+    Logger logger;
+
+    TextView tvLog;
 
     @Override
     protected void onCreate (Bundle savedInstanceState)
@@ -36,6 +48,8 @@ public class FieldServiceActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         myPrefs = new Prefs(this.getApplicationContext());
+        logger = Logger.getInstance();
+
         refreshUserInfo();
         final Button btnRefresh = (Button) findViewById(R.id.getjobs);
         btnRefresh.setOnClickListener(new View.OnClickListener()
@@ -97,9 +111,12 @@ public class FieldServiceActivity extends AppCompatActivity
         }
         else
         {
-            tvUserName.setText(myPrefs.getSavedUsername());
+            String mail = myPrefs.getSavedUsername();
+            String name = mail.substring(0, mail.indexOf('@'));
+            tvUserName.setText(name);
         }
 
+        tvLog = (TextView) findViewById(R.id.infobox);
     }
 
     @Override
@@ -199,5 +216,27 @@ public class FieldServiceActivity extends AppCompatActivity
     private void refreshUserInfo ()
     {
 
+    }
+
+    private void refreshLogBox ()
+    {
+        if (tvLog == null)
+        {
+            return;
+        }
+        List<LogEntry> entries = logger.getEntries();
+        StringBuilder sb = new StringBuilder();
+        for (LogEntry entry : entries)
+        {
+            sb.append(entry.getMessage() + "\n");
+        }
+        tvLog.setText(sb.toString());
+    }
+
+    @Override
+    protected void onResume ()
+    {
+        super.onResume();
+        refreshLogBox();
     }
 }

@@ -16,10 +16,13 @@ public class JobDownloadTask extends AsyncTask<Void, Void, String>
     Context mContext;
     HttpResultInterpreter mResultInterpreter;
 
+    Logger logger;
+
     public JobDownloadTask(Context context, HttpResultInterpreter resultInterpreter)
     {
         mContext = context;
         mResultInterpreter = resultInterpreter;
+        logger = Logger.getInstance();
     }
 
     @Override
@@ -28,6 +31,7 @@ public class JobDownloadTask extends AsyncTask<Void, Void, String>
         mPrefs = Prefs.getInstance(mContext);
 
         client = new OkHttpClient();
+        logger.put("start fetching jobs");
     }
 
     @Override

@@ -11,10 +11,7 @@ import com.google.gson.JsonSyntaxException;
 import dev.mstiehr.de.fieldserviceapplication.R;
 import dev.mstiehr.de.fieldserviceapplication.json.Job;
 import dev.mstiehr.de.fieldserviceapplication.json.JobTransferObject;
-import dev.mstiehr.de.fieldserviceapplication.misc.Constants;
-import dev.mstiehr.de.fieldserviceapplication.misc.HttpResultInterpreter;
-import dev.mstiehr.de.fieldserviceapplication.misc.JobDownloadTask;
-import dev.mstiehr.de.fieldserviceapplication.misc.Prefs;
+import dev.mstiehr.de.fieldserviceapplication.misc.*;
 
 import java.util.List;
 
@@ -23,6 +20,7 @@ public class RefreshJobsActivity extends AppCompatActivity
     private static final String TAG = RefreshJobsActivity.class.getSimpleName();
 
     Prefs mPrefs;
+    Logger logger;
 
     HttpResultInterpreter resultInterpreter = new HttpResultInterpreter()
     {
@@ -40,10 +38,12 @@ public class RefreshJobsActivity extends AppCompatActivity
                     long id = job.save();
                     Log.d(TAG, "id: " + id);
                 }
+                logger.put("fetched " + jobs.size() + " new jobs.");
             }
             catch (JsonSyntaxException e)
             {
                 e.printStackTrace();
+                logger.put("error parsing jobs");
                 return;
             }
         }
@@ -56,6 +56,7 @@ public class RefreshJobsActivity extends AppCompatActivity
         setContentView(R.layout.activity_refresh_jobs);
 
         mPrefs = Prefs.getInstance(this.getApplicationContext());
+        logger = Logger.getInstance();
 
         JobDownloadTask jobDownloadTask = new JobDownloadTask(getApplicationContext(), resultInterpreter);
         jobDownloadTask.execute();
