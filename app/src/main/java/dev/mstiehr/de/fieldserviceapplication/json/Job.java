@@ -1,5 +1,6 @@
 package dev.mstiehr.de.fieldserviceapplication.json;
 
+import android.os.Bundle;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -155,5 +156,36 @@ public class Job extends Model
         this.product = product;
         this.productUrl = productUrl;
         this.comments = comments;
+    }
+
+    public Bundle toBundle() {
+        Bundle b = new Bundle();
+        b.putString("jobid", this.id);
+        b.putString("status", this.status);
+        b.putString("customer", this.customer);
+        b.putString("address", this.address);
+        b.putString("city",this.city);
+        b.putString("state",this.state);
+        b.putString("zip", this.zip);
+        b.putString("product", this.product);
+        b.putString("producturl", this.productUrl);
+        b.putString("comments", this.comments);
+
+        return b;
+    }
+    public static Job fromBundle(Bundle b) {
+        Job job = new Job();
+        job.setId(b.getString("jobid"));
+        job.setStatus(b.getString("status"));
+        job.setCustomer(b.getString("customer"));
+        job.setAddress(b.getString("address"));
+        job.setCity(b.getString("city"));
+        job.setState(b.getString("state"));
+        job.setZip(b.getString("zip"));
+        job.setProduct(b.getString("product"));
+        job.setProductUrl(b.getString("producturl"));
+        job.setComments(b.getString("comments"));
+
+        return job;
     }
 }

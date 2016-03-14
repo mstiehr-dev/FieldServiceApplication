@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import dev.mstiehr.de.fieldserviceapplication.DatabaseHelper;
 import dev.mstiehr.de.fieldserviceapplication.R;
 import dev.mstiehr.de.fieldserviceapplication.json.Job;
 import dev.mstiehr.de.fieldserviceapplication.json.JobTransferObject;
@@ -46,6 +47,7 @@ public class RefreshJobsActivity extends AppCompatActivity
                 logger.put("error parsing jobs");
                 return;
             }
+            DatabaseHelper.getInstance().reportNewJobs();
         }
     };
 

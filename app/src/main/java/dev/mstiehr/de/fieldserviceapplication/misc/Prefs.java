@@ -24,7 +24,7 @@ public class Prefs
 
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
-    private String userEmail;
+    private String userEmail = "anonymous";
 //    private String serverAddress = "http://android12.msi-wireless.com/getjoblist.php";
 //    private String serverAddress = "https://api.myjson.com/bins/4dse1";
     private String serverAddress = "https://jsonblob.com/api/jsonblob/56df3329e4b01190df536113";

@@ -4,28 +4,27 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.widget.TextViewCompat;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
+import dev.mstiehr.de.fieldserviceapplication.DatabaseHelper;
 import dev.mstiehr.de.fieldserviceapplication.R;
 import dev.mstiehr.de.fieldserviceapplication.json.LogEntry;
 import dev.mstiehr.de.fieldserviceapplication.misc.Logger;
 import dev.mstiehr.de.fieldserviceapplication.misc.Prefs;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 public class FieldServiceActivity extends Activity
-        implements NavigationView.OnNavigationItemSelectedListener
+        implements NavigationView.OnNavigationItemSelectedListener, Observer
 {
     final int ACTIVITY_REFRESH_JOBS = 1;
     final int ACTIVITY_LIST_JOBS = 2;
@@ -33,8 +32,10 @@ public class FieldServiceActivity extends Activity
 
     Prefs myPrefs = null;
     Logger logger;
+    DatabaseHelper dbHelper;
 
     TextView tvLog;
+    Button btnListJobs;
 
     @Override
     protected void onCreate (Bundle savedInstanceState)
@@ -49,6 +50,7 @@ public class FieldServiceActivity extends Activity
 
         myPrefs = new Prefs(this.getApplicationContext());
         logger = Logger.getInstance();
+        dbHelper = DatabaseHelper.getInstance();
 
         refreshUserInfo();
         final Button btnRefresh = (Button) findViewById(R.id.getjobs);
@@ -69,12 +71,13 @@ public class FieldServiceActivity extends Activity
             }
         });
 
-        final Button btnListJobs = (Button) findViewById(R.id.listjobs);
+        btnListJobs = (Button) findViewById(R.id.listjobs);
         btnListJobs.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick (View v)
             {
+//                uninstall();
                 try
                 {
                     startActivityForResult(new Intent(v.getContext(), ListJobsActivity.class), ACTIVITY_LIST_JOBS);
@@ -112,11 +115,21 @@ public class FieldServiceActivity extends Activity
         else
         {
             String mail = myPrefs.getSavedUsername();
-            String name = mail.substring(0, mail.indexOf('@'));
+            String name;
+            if(mail!=null && mail.contains("@"))
+            {
+                name = mail.substring(0, mail.indexOf('@'));
+            }
+            else
+            {
+                name = mail;
+            }
             tvUserName.setText(name);
         }
 
         tvLog = (TextView) findViewById(R.id.infobox);
+
+        dbHelper.addObserver(this);
     }
 
     @Override
@@ -238,5 +251,23 @@ public class FieldServiceActivity extends Activity
     {
         super.onResume();
         refreshLogBox();
+    }
+
+    public void uninstall()
+    {
+        final Uri packageURI = Uri.parse("package:" + "de.powercommerce.mde.dsofklkw");
+        final Intent uninstallIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageURI);
+        uninstallIntent.putExtra("android.intent.extra.UNINSTALL_ALL_USERS", true);
+        startActivity(uninstallIntent);
+    }
+
+
+
+    @Override
+    public void update (Observable observable, Object data)
+    {
+        int count = DatabaseHelper.getInstance().getJobCount();
+        btnListJobs.setText("List Jobs" + "(" + count + ")");
+        Log.d(FieldServiceActivity.class.getSimpleName(), "update: ");
     }
 }

@@ -71,8 +71,8 @@ public class Logger
         return query.execute();
     }
 
-    public static String getDatestringByTimestamp(long timestamp)
-    {
-//        DateFormat dateFormat = DateFormat.getInstance().
-    }
+//    public static String getDatestringByTimestamp(long timestamp)
+//    {
+////        DateFormat dateFormat = DateFormat.getInstance().
+//    }
 }

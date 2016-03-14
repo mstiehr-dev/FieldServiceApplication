@@ -1,5 +1,6 @@
 package dev.mstiehr.de.fieldserviceapplication.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -39,12 +40,21 @@ public class ListJobsActivity extends AppCompatActivity implements AdapterView.O
         adapter = new JobListAdapter();
 
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
     }
 
     @Override
     public void onItemClick (AdapterView<?> parent, View view, int position, long id)
     {
-
+        Job job = (Job) adapter.getItem(position);
+        if(null==job)
+        {
+            return;
+        }
+        Bundle b = job.toBundle();
+        Intent intent = new Intent(getApplicationContext(), ShowJobActivity.class);
+        intent.putExtras(b);
+        startActivity(intent);
     }
     
     class JobListAdapter extends BaseAdapter

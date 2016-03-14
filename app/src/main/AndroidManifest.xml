@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="dev.mstiehr.de.fieldserviceapplication">
+
     <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
             android:name=".FieldServiceApplication"
             android:allowBackup="true"
@@ -17,6 +19,7 @@
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -37,13 +40,26 @@
                 android:label="@string/title_activity_settings_transient"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <meta-data android:name="AA_DB_NAME" android:value="fieldservice.db"/>
-        <meta-data android:name="AA_DB_VERSION" android:value="1"/>
+
+        <meta-data
+                android:name="AA_DB_NAME"
+                android:value="fieldservice.db"/>
+        <meta-data
+                android:name="AA_DB_VERSION"
+                android:value="1"/>
         <meta-data
                 android:name="AA_MODELS"
-                android:value="dev.mstiehr.de.fieldserviceapplication.json.Job, dev.mstiehr.de.fieldserviceapplication.json.LogEntry" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
+                android:value="dev.mstiehr.de.fieldserviceapplication.json.Job, dev.mstiehr.de.fieldserviceapplication.json.LogEntry"/>
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version"/>
+
+        <activity android:name=".activity.ShowJobActivity">
+        </activity>
     </application>
 
 </manifest>
