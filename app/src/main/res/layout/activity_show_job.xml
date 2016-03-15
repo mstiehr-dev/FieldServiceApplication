@@ -2,6 +2,7 @@
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:background="@color/bg_bright"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -14,7 +15,7 @@
                 String product, String productUrl, String comments)
     -->
     <!-- state -->
-    <ImageView
+    <ImageButton
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_alignParentTop="true"
@@ -63,11 +64,38 @@
             android:id="@+id/ib_show_map"
             android:src="@android:drawable/ic_menu_compass"
     />
-    <!-- product -->
-    <RelativeLayout
+    <!-- product, producturl, comments -->
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/ib_show_map">
-
-    </RelativeLayout>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="EasyBox 904"
+                android:textAlignment="center"
+                android:ellipsize="end"
+                android:background="@color/bg_medium"
+                android:id="@+id/tv_product"
+        />
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:text="http://vodafone.com"
+                android:textAlignment="center"
+                android:ellipsize="end"
+                android:background="@color/bg_medium"
+                android:id="@+id/tv_url"
+        />
+        <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="step 1: get unplug old router\nstep 2: unbox new product\nstep 3: ..."
+                android:id="@+id/tv_comments"
+        />
+        </ScrollView>
+    </LinearLayout>
 </RelativeLayout>

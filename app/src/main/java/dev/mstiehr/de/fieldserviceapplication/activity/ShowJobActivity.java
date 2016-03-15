@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
+import de.svenjacobs.loremipsum.LoremIpsum;
 import dev.mstiehr.de.fieldserviceapplication.R;
 import dev.mstiehr.de.fieldserviceapplication.json.Job;
 
@@ -11,6 +13,8 @@ public class ShowJobActivity extends AppCompatActivity
 {
     private final static String TAG = ShowJobActivity.class.getSimpleName();
     Job currentJob;
+
+    TextView tvComments;
 
     @Override
     protected void onCreate (Bundle savedInstanceState)
@@ -25,5 +29,8 @@ public class ShowJobActivity extends AppCompatActivity
         }
         currentJob = Job.fromBundle(currentIntent.getExtras());
         Log.d(TAG, "currentJob: " + currentJob);
+
+        tvComments = (TextView) findViewById(R.id.tv_comments);
+        tvComments.setText(new LoremIpsum().getWords(1000));
     }
 }
